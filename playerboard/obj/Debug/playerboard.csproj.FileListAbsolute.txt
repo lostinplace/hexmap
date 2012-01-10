@@ -1,0 +1,5 @@
+c:\dev\git\playerboard\playerboard\bin\playerboard.dll
+c:\dev\git\playerboard\playerboard\bin\playerboard.pdb
+c:\dev\git\playerboard\playerboard\obj\Debug\ResolveAssemblyReference.cache
+c:\dev\git\playerboard\playerboard\obj\Debug\playerboard.dll
+c:\dev\git\playerboard\playerboard\obj\Debug\playerboard.pdb
