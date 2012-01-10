@@ -8,12 +8,12 @@
             var frameInterval,
                 playerBoard,
                 canvasObj;
-            
+
             var sidelength = 35;
             var cellHeight = Math.sin(Math.PI / 3) * sidelength * 1.5;
-            var cellWidth = sidelength*(1+Math.cos(Math.PI/3));
+            var cellWidth = sidelength * (1 + Math.cos(Math.PI / 3));
 
-            var borderBoxWidth = Math.cos(Math.PI/3)*sidelength;
+            var borderBoxWidth = Math.cos(Math.PI / 3) * sidelength;
             var sideBoxWidth = (cellWidth - borderBoxWidth) / 2;
             //var diagLength = Math.sqrt(Math.pow(borderBoxWidth, 2) + Math.pow(cellHeight));
 
@@ -28,31 +28,41 @@
                 playerBoard = BuildBoard(10, 10);
                 canvasObj = $('canvas')[0];
                 var tmpContext = canvasObj.getContext('2d');
-                var xScale, yScale;
+                var xOrigin, yOrigin;
                 for (var x = 0; x < playerBoard.length; x++) {
                     for (var y = 0; y < playerBoard[x].length; y++) {
-                        xScale = (x * cellWidth) + 1;
-                        yScale = (y * cellHeight) + 1;
+                        xOrigin = (x * cellWidth) + 1;
+                        yOrigin = (y * cellHeight) + 1;
                         var dir = (x + y) % 2;
+                        var dirAdjust = (borderBoxWidth * dir);
+                        var lineAdjust = ((borderBoxWidth + sideBoxWidth) * dir);
 
                         tmpContext.strokeStyle = 'rgb(240,240,240)';
-                        tmpContext.strokeRect(xScale, yScale, cellWidth, cellHeight);
+                        tmpContext.strokeRect(xOrigin, yOrigin, cellWidth, cellHeight);
 
                         tmpContext.lineWidth = 1.5;
                         tmpContext.strokeStyle = 'rgb(255,0,0)';
 
                         tmpContext.beginPath();
-                        tmpContext.moveTo((xScale + sideBoxWidth) + (borderBoxWidth * dir), yScale);
-                        tmpContext.lineTo((xScale + sideBoxWidth + borderBoxWidth) - (borderBoxWidth * dir), yScale + cellHeight);
-                        tmpContext.lineTo((xScale + sideBoxWidth) + (borderBoxWidth * dir), yScale + cellHeight);
-
-                        //tmpContext.closePath();
+                        tmpContext.moveTo((xOrigin + sideBoxWidth) + dirAdjust, yOrigin);
+                        tmpContext.lineTo((xOrigin + sideBoxWidth + borderBoxWidth) - dirAdjust, yOrigin + cellHeight);
+                        //tmpContext.lineTo((xOrigin + sideBoxWidth) + dirAdjust, yOrigin + cellHeight);
+                         
                         tmpContext.stroke();
 
+                        tmpContext.beginPath();
+                        tmpContext.moveTo(xOrigin + lineAdjust, yOrigin);
+                        tmpContext.lineTo(xOrigin + lineAdjust + sideBoxWidth + dir * tmpContext.lineWidth, yOrigin);
+                        //tmpContext.lineTo((xOrigin + sideBoxWidth) + dirAdjust, yOrigin);
+                        tmpContext.stroke();
 
-                        //tmpContext.strokeRect(xScale + sideBoxWidth, yScale, borderBoxWidth, cellHeight);
-                        tmpContext.strokeStyle = 'rgb(240,240,240)';
-                        tmpContext.strokeRect(xScale, yScale, cellWidth, cellHeight);
+                        //tmpContext.closePath();
+                        //tmpContext.stroke();
+
+
+                        //tmpContext.strokeRect(xOrigin + sideBoxWidth, yOrigin, borderBoxWidth, cellHeight);
+                        //tmpContext.strokeStyle = 'rgb(240,240,240)';
+                        //tmpContext.strokeRect(xOrigin, yOrigin, cellWidth, cellHeight);
 
                     }
 
